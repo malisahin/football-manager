@@ -1,5 +1,5 @@
 /target/
-!.mvn/wrapper/maven-wrapper.jar
+
 
 ### STS ###
 .apt_generated
@@ -11,7 +11,7 @@
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -26,6 +26,8 @@
 
 rebel.xml
 .rebel.xml.bak
-/*/.idea
+/*/.idea/libraries
 /*/target
 /.mvn/
+
+/.idea/libraries/*.xml
