@@ -19,6 +19,8 @@
 	<modules>
 		<module>eureka-server</module>
 		<module>gateway</module>
+		<module>player-com.works.playerservice.service</module>
+		<module>team-com.works.playerservice.service</module>
 	</modules>
 
 </project>
