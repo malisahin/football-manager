@@ -15,13 +15,13 @@
 	<name>football-manager</name>
 	<description>Demo project for Spring Boot</description>
 
-
 	<modules>
 		<module>eureka-server</module>
 		<module>gateway</module>
 		<module>player-service</module>
 		<module>team-service</module>
-        <module>shared-library</module>
-    </modules>
+		<module>shared-library</module>
+	</modules>
+
 
 </project>
