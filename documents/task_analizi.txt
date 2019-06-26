@@ -1,0 +1,45 @@
+Common
+  cuser,
+  cdate,
+  uuser,
+  udate,
+
+Team 
+  Team_Id
+  Team Name, 
+  Country,
+
+Player
+  PlayerId,
+  PlayerName,
+  CareerBeginningDate,
+  Team_Id,
+  birthDate,
+  currentTeam,
+  
+
+Transfer_Cost = (Transfer_Date - Player.CareerBeginningDate) * 100.000  / (Transfer_Date  - birthDate)
+Commission = 0.1 * Transfer_Cost
+Contract Value = Transfer_Cost * 1.1;
+
+Transfer
+  Transfer_Id
+  departure
+  terminal
+  Transfer_Date,
+  
+   
+
+Transfer dönemi için el sıkışmak gerekiyor.
+Senede dönem sayısı kaç defa olacak? Yıl üzerinden hesaplanmalı dendiği için 1 defa olarak varsayıyorum. (1 defa olarak hesaplana bilir evet)
+
+Secilen futbolcunun takımları sorusunun cevabi, Daha once transfer olduğu takımları da icinde bulunduracak mi?(evet futbol hayatına basladıgı tarihten itibaren mevcutta bulundugu tariha kadar bulundugu takımları beklemekteyiz)
+Bir futbolcu her sene bir takim da oynamak zorunda mi? Futbolcunun bosa çıkması söz konusu olabilir mi?(Futbolcunun bosa cıkması soz konusu evet ama bu cok fazla kodlama yuku olusturucak ise ignore edebilirsin)
+Her takım transfer ücretini kendi para biriminden hesaplayacak kısmında.
+Bir futbolcu 100.000 Dolar == 550.000 TL == 80.000 Euro hesabı yapılmalı değil mi?(currency ye gore hesaplama yapılırken sabit currency kullanabilirsin)
+Tecrübe ay sayısı(Yukarıda verdiğiniz cevaba göre aşağıdaki şıklardan birisi elenir.),
+Transfer dönem sayısı 1 ise, geçen her yıl futbolcuya 12 ay tecrübe katar.
+Transfer dönem sayısı 2 ise, geçen her dönem futbolcuya 6 ay tecrübe katar.
+Hemfikir miyiz?(evet bahsettigin gibi ama donem sayısını 1 olarak dusunup codlayabilirsin)
+Yaş hesaplanırken
+1990 doğumlu biri  2019 - 1990 = 29 yapılır. 1990 Ocak yada Aralık aylarında doğmuş olması farkeder mi?(fark etmez yıl olarak hesaplayabilirsin)
