@@ -25,7 +25,7 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    static Predicate<Player> canPlay(Player player) {
+    private static Predicate<Player> canPlay(Player player) {
         int age = DateUtil.getYear(new Date()) - DateUtil.getYear(player.getBirthDate());
         return p -> p.getTeamId() == 0 && age > 15 && age < 40;
     }
@@ -73,9 +73,9 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
     }
 
     private Player update(Player player) {
-        Optional<Player> existingPlayer = playerRepository.findByPlayerIdAndIsActv(player.getPlayerId(), Constants.DEFAULT_TRUE_VALUE);
+        final Optional<Player> existingPlayer = playerRepository.findByPlayerIdAndIsActv(player.getPlayerId(), Constants.DEFAULT_TRUE_VALUE);
         if (!existingPlayer.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Player is not found with id" + player.getPlayerId());
         }
         final Player exist = existingPlayer.get();
         exist.setTeamId(player.getTeamId());
