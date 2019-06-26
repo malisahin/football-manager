@@ -1,4 +1,4 @@
-package com.works.sharedlibrary.config.domain.dto;
+package com.works.sharedlibrary.domain.dto;
 
 import com.works.sharedlibrary.util.DateUtil;
 
@@ -17,7 +17,7 @@ public class TransferDTO {
 
     public double getTransferCost() {
         final int transferYear = DateUtil.getYear(this.transferDate);
-        final int careerBeginningYear = DateUtil.getYear(this.player.careerBeginningDate);
+        final int careerBeginningYear = DateUtil.getYear(this.player.careerStartDate);
         final int birthYear = DateUtil.getYear(this.player.birthDate);
         final int experienceByMonth = (transferYear - careerBeginningYear) * 12;
         final int age = transferYear - birthYear;

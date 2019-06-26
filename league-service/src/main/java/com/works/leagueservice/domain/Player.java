@@ -34,11 +34,9 @@ public class Player extends BaseEntity {
     @Column(name = "team_id", nullable = false)
     private long teamId;
 
-/*
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     private Team team;
-*/
 
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;

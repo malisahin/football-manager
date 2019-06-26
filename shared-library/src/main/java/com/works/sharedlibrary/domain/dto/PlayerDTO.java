@@ -1,4 +1,4 @@
-package com.works.sharedlibrary.config.domain.dto;
+package com.works.sharedlibrary.domain.dto;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
 public class PlayerDTO {
     public long playerId;
     public String playerName;
-    public Date careerBeginningDate;
+    public Date careerStartDate;
     public TeamDTO team;
     public Date birthDate;
 

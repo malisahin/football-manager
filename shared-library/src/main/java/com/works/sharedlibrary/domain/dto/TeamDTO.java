@@ -1,4 +1,4 @@
-package com.works.sharedlibrary.config.domain.dto;
+package com.works.sharedlibrary.domain.dto;
 
 /**
  * @author mali.sahin

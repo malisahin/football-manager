@@ -9,7 +9,8 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractService {
 
-  protected final Logger logger = LogManager.getLogger(this.getClass());
+    protected final Logger logger = LogManager.getLogger(this.getClass());
+
 
 
 }

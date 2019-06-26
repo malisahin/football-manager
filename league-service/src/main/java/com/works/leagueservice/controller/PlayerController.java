@@ -1,6 +1,6 @@
 package com.works.leagueservice.controller;
 
-import com.works.sharedlibrary.config.domain.dto.PlayerDTO;
+import com.works.sharedlibrary.domain.dto.PlayerDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
