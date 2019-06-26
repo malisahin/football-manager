@@ -6,6 +6,7 @@ import com.works.leagueservice.repository.PlayerRepository;
 import com.works.leagueservice.service.PlayerService;
 import com.works.sharedlibrary.exceptions.BusinessValidationException;
 import com.works.sharedlibrary.exceptions.InvalidFieldException;
+import com.works.sharedlibrary.exceptions.ResourceNotFoundException;
 import com.works.sharedlibrary.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,9 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
         validatePlayerToSave(player);
         return Optional.ofNullable(player)
                 .map(Player::getPlayerId)
+                .filter(id -> id != 0)
                 .map(id -> this.update(player))
-                .orElseGet(() -> playerRepository.save(player));
+                .orElseGet(() -> this.persist(player));
 
     }
 
@@ -54,7 +56,7 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
 
         Optional.of(player)
                 .map(PlayerServiceImpl::canPlay)
-                .orElseThrow(() -> new BusinessValidationException(""));
+                .orElseThrow(() -> new BusinessValidationException("Player has to play in a team!!!"));
 
         Optional.of(player)
                 .map(Player::getBirthDate)
@@ -66,8 +68,21 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
 
     }
 
-    public Player update(Player player) {
-        Player existingPlayer = playerRepository.findById()
+    private Player persist(Player player) {
+        return this.playerRepository.save(player);
+    }
+
+    private Player update(Player player) {
+        Optional<Player> existingPlayer = playerRepository.findByPlayerIdAndIsActv(player.getPlayerId(), Constants.DEFAULT_TRUE_VALUE);
+        if (!existingPlayer.isPresent()) {
+            throw new ResourceNotFoundException();
+        }
+        final Player exist = existingPlayer.get();
+        exist.setTeamId(player.getTeamId());
+        exist.setPlayerName(player.getPlayerName());
+        exist.setBirthDate(player.getBirthDate());
+        exist.setCareerStartDate(player.getCareerStartDate());
+        return persist(exist);
     }
 
     @Override
