@@ -9,6 +9,8 @@ import com.works.sharedlibrary.exceptions.InvalidFieldException;
 import com.works.sharedlibrary.exceptions.ResourceNotFoundException;
 import com.works.sharedlibrary.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -73,7 +75,7 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
     }
 
     private Player update(Player player) {
-        final Optional<Player> existingPlayer = playerRepository.findByPlayerIdAndIsActv(player.getPlayerId(), Constants.DEFAULT_TRUE_VALUE);
+        final Optional<Player> existingPlayer = playerRepository.findByPlayerIdAndIsActv(player.getPlayerId(), Constants.DEFAULT_VALID_VALUE);
         if (!existingPlayer.isPresent()) {
             throw new ResourceNotFoundException("Player is not found with id" + player.getPlayerId());
         }
@@ -87,6 +89,11 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
 
     @Override
     public void delete(long playerId) {
-        playerRepository.disablePlayer(playerId, Constants.DEFAULT_FALSE_VALUE);
+        playerRepository.disablePlayer(playerId, Constants.DEFAULT_INVALID_VALUE);
+    }
+
+    @Override
+    public Page<Player> search(Pageable pageable) {
+        return playerRepository.findAll(pageable);
     }
 }

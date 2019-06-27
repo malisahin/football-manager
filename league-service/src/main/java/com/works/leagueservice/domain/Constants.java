@@ -6,6 +6,6 @@ package com.works.leagueservice.domain;
  */
 public class Constants {
 
-    public static final int DEFAULT_FALSE_VALUE = 0;
-    public static final int DEFAULT_TRUE_VALUE = 1;
+    public static final int DEFAULT_INVALID_VALUE = 0;
+    public static final int DEFAULT_VALID_VALUE = 1;
 }
