@@ -6,7 +6,7 @@ package com.works.sharedlibrary.domain.dto;
  */
 
 public class PlayerDTO {
-    public long playerId;
+    public Long playerId;
     public String playerName;
     public int careerStartYear;
     public TeamDTO team;

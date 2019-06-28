@@ -1,6 +1,9 @@
 package com.works.leagueservice.service;
 
+import com.works.leagueservice.domain.Team;
 import com.works.leagueservice.domain.Transfer;
+
+import java.util.List;
 
 /**
  * @author mali.sahin
@@ -9,4 +12,6 @@ import com.works.leagueservice.domain.Transfer;
 public interface TransferService {
 
     Transfer save(Transfer transfer);
+
+    List<Team> getTeamListByPlayer(Long playerId);
 }

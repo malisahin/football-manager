@@ -25,7 +25,7 @@ public class Player extends BaseEntity {
     @Id
     @Column(name = "player_id", nullable = false, updatable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long playerId;
+    private Long playerId;
 
     @Column(name = "player_name", nullable = false)
     private String playerName;
@@ -34,7 +34,7 @@ public class Player extends BaseEntity {
     private int careerStartYear;
 
     @Column(name = "team_id", nullable = false)
-    private long teamId;
+    private Long teamId;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")

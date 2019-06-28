@@ -43,3 +43,8 @@ Transfer dönem sayısı 2 ise, geçen her dönem futbolcuya 6 ay tecrübe katar
 Hemfikir miyiz?(evet bahsettigin gibi ama donem sayısını 1 olarak dusunup codlayabilirsin)
 Yaş hesaplanırken
 1990 doğumlu biri  2019 - 1990 = 29 yapılır. 1990 Ocak yada Aralık aylarında doğmuş olması farkeder mi?(fark etmez yıl olarak hesaplayabilirsin)
+
+
+2015
+
+2011  GS -> FB

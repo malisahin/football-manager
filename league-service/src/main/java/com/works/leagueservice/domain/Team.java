@@ -21,7 +21,7 @@ public class Team extends BaseEntity {
     @Id
     @Column(name = "team_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long teamId;
+    private Long teamId;
 
     @Column(name = "team_name", nullable = false)
     private String teamName;

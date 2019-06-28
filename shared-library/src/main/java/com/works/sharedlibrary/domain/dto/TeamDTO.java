@@ -5,6 +5,6 @@ package com.works.sharedlibrary.domain.dto;
  * @since 2019-06-25.
  */
 public class TeamDTO {
-    public  long teamId;
+    public  Long teamId;
     public String teamName;
 }

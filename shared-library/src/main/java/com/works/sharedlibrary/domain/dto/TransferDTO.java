@@ -5,7 +5,7 @@ package com.works.sharedlibrary.domain.dto;
  * @since 2019-06-25.
  */
 public class TransferDTO {
-    public long transferId;
+    public Long transferId;
     public TeamDTO departure;
     public TeamDTO destination;
     public PlayerDTO player;

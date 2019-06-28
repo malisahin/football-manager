@@ -25,7 +25,7 @@ public class PlayerController {
     }
 
     @DeleteMapping(name = "/{playerId}")
-    public ResponseEntity deletePlayer(@PathVariable long playerId) {
+    public ResponseEntity deletePlayer(@PathVariable Long playerId) {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
