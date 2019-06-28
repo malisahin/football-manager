@@ -4,7 +4,6 @@ import com.works.leagueservice.domain.Constants;
 import com.works.leagueservice.domain.Player;
 import com.works.leagueservice.repository.PlayerRepository;
 import com.works.leagueservice.service.PlayerService;
-import com.works.sharedlibrary.exceptions.BusinessValidationException;
 import com.works.sharedlibrary.exceptions.InvalidFieldException;
 import com.works.sharedlibrary.exceptions.ResourceNotFoundException;
 import com.works.sharedlibrary.util.DateUtil;
@@ -28,7 +27,7 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
     private PlayerRepository playerRepository;
 
     private static Predicate<Player> canPlay(Player player) {
-        int age = DateUtil.getYear(new Date()) - DateUtil.getYear(player.getBirthDate());
+        int age = DateUtil.getYear(new Date()) - player.getBirthYear();
         return p -> p.getTeamId() == 0 && age > 15 && age < 40;
     }
 
@@ -52,16 +51,17 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
                 .map(name -> isNotBlank())
                 .orElseThrow(invalidFieldSupplier("Player Name cannot be null!!"));
 
+
         Optional.of(player)
-                .map(Player::getCareerStartDate)
+                .map(Player::getCareerStartYear)
                 .orElseThrow(invalidFieldSupplier("Career Start Date cannot be null!!"));
 
-        Optional.of(player)
-                .map(PlayerServiceImpl::canPlay)
+  /*      Optional.of(player)
+                .map(Player::isEligible)
                 .orElseThrow(() -> new BusinessValidationException("Player has to play in a team!!!"));
-
+*/
         Optional.of(player)
-                .map(Player::getBirthDate)
+                .map(Player::getBirthYear)
                 .orElseThrow(invalidFieldSupplier("Birth Date cannot be null!!"));
 
         Optional.of(player)
@@ -82,8 +82,8 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
         final Player exist = existingPlayer.get();
         exist.setTeamId(player.getTeamId());
         exist.setPlayerName(player.getPlayerName());
-        exist.setBirthDate(player.getBirthDate());
-        exist.setCareerStartDate(player.getCareerStartDate());
+        exist.setBirthYear(player.getBirthYear());
+        exist.setCareerStartYear(player.getCareerStartYear());
         return persist(exist);
     }
 

@@ -21,6 +21,10 @@ public class TransferServiceImpl extends BaseService implements TransferService 
         return this.persist(transfer);
     }
 
+    private void validateToSave(Transfer transfer){
+
+    }
+
     private Transfer persist(Transfer transfer) {
         return this.save(transfer);
     }

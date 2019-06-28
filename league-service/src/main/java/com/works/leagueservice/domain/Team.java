@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author mali.sahin
@@ -25,7 +26,7 @@ public class Team extends BaseEntity {
     @Column(name = "team_name", nullable = false)
     private String teamName;
 
-/*    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "team")
-    private List<Player> playerList;*/
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "team")
+    private List<Player> playerList;
 
 }

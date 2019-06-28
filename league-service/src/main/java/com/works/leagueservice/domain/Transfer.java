@@ -17,13 +17,13 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class Transfer extends BaseEntity{
+public class Transfer extends BaseEntity {
 
     @Id
     @Column(name = "transfer_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long transferId;
-/*
+
     @Column(name = "departure_team_id", nullable = false)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id", referencedColumnName = "departure_team_id")
@@ -39,6 +39,6 @@ public class Transfer extends BaseEntity{
     @JoinColumn(name = "player_id", referencedColumnName = "player_id")
     private Player player;
 
-    @Column(name = "transfer_date", nullable = false)
-    private Date transferDate;*/
+    @Column(name = "transfer_year", nullable = false)
+    private int transferYear;
 }

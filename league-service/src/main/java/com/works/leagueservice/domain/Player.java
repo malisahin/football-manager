@@ -1,5 +1,6 @@
 package com.works.leagueservice.domain;
 
+import com.works.sharedlibrary.util.DateUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.function.Predicate;
 
 /**
  * @author mali.sahin
@@ -28,8 +30,8 @@ public class Player extends BaseEntity {
     @Column(name = "player_name", nullable = false)
     private String playerName;
 
-    @Column(name = "career_start_date", nullable = false)
-    private Date careerStartDate;
+    @Column(name = "career_start_year", nullable = false)
+    private int careerStartYear;
 
     @Column(name = "team_id", nullable = false)
     private long teamId;
@@ -38,6 +40,15 @@ public class Player extends BaseEntity {
     @JoinColumn(name = "team_id", referencedColumnName = "team_id")
     private Team team;
 
-    @Column(name = "birth_date", nullable = false)
-    private Date birthDate;
+    @Column(name = "birth_year", nullable = false)
+    private int birthYear;
+
+    public Predicate<Player> isEligible() {
+        return s -> s.getAge() > 18 && s.getAge() < 40;
+    }
+
+    public int getAge() {
+        return DateUtil.getYear(new Date()) - this.birthYear;
+    }
+
 }

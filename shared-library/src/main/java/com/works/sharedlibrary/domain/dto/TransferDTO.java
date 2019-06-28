@@ -1,9 +1,5 @@
 package com.works.sharedlibrary.domain.dto;
 
-import com.works.sharedlibrary.util.DateUtil;
-
-import java.util.Date;
-
 /**
  * @author mali.sahin
  * @since 2019-06-25.
@@ -13,15 +9,12 @@ public class TransferDTO {
     public TeamDTO departure;
     public TeamDTO destination;
     public PlayerDTO player;
-    public Date transferDate;
+    public int transferYear;
 
     public double getTransferCost() {
-        final int transferYear = DateUtil.getYear(this.transferDate);
-        final int careerBeginningYear = DateUtil.getYear(this.player.careerStartDate);
-        final int birthYear = DateUtil.getYear(this.player.birthDate);
-        final int experienceByMonth = (transferYear - careerBeginningYear) * 12;
-        final int age = transferYear - birthYear;
-        return (double) (experienceByMonth * 100000) / age;
+        final int experienceByMonth = (transferYear - this.player.careerStartYear) * 12;
+        final int age = this.transferYear - this.player.birthYear;
+        return (double) (experienceByMonth * 100000) / age * 1.0;
     }
 
     public double getTeamCommission() {
