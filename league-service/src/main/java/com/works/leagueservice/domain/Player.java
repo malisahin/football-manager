@@ -51,4 +51,19 @@ public class Player extends BaseEntity {
         return DateUtil.getYear(new Date()) - this.birthYear;
     }
 
+    public Player deepCopy() {
+        Player clone = new Player();
+        clone.setPlayerId(this.playerId);
+        clone.setTeamId(this.getTeamId());
+        clone.setTeam(this.team);
+        clone.setCareerStartYear(this.getCareerStartYear());
+        clone.setBirthYear(this.getBirthYear());
+        clone.setCreatedAt(this.getCreatedAt());
+        clone.setCreateUser(this.getCreateUser());
+        clone.setUpdatedAt(this.getUpdatedAt());
+        clone.setUpdateUser(this.getUpdateUser());
+        clone.setIsActv(this.getIsActv());
+        return clone;
+    }
+
 }

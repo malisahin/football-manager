@@ -48,5 +48,4 @@ public class TeamServiceImpl extends BaseService implements TeamService {
         teamRepository.disableTeam(teamId, Constants.DEFAULT_INVALID_VALUE);
     }
 
-    public
 }

@@ -44,13 +44,14 @@ public class BaseEntity implements Serializable {
     protected Date updatedAt;
 
     @Column(name = "is_actv", nullable = false)
-    protected int isActv = 1;
+    protected Long isActv;
 
     @PrePersist
     public void setPersistData() {
         // TODO should be call from user tables.
         this.setCreateUser("c_mali");
         this.setCreatedAt(new Date());
+        this.setIsActv(Constants.DEFAULT_VALID_VALUE);
     }
 
     @PreUpdate
