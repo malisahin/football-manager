@@ -12,9 +12,11 @@ import java.util.Optional;
  * @author mali.sahin
  * @since 2019-06-26.
  */
+
 @Repository
 public interface TransferRepository extends JpaRepository<Transfer, Long>, JpaSpecificationExecutor<Transfer> {
-    Optional<Transfer> findByTransferIdAndIsActv(Long transferId, int isActv);
+
+    Optional<Transfer> findByTransferIdAndIsActv(Long transferId, Long isActv);
 
     List<Transfer> findByPlayerId(Long playerId);
 }

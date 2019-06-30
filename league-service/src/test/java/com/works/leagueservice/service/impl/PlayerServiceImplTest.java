@@ -46,6 +46,7 @@ public class PlayerServiceImplTest {
         teamWithRequiredFields.setTeamName("Manchester");
         teamWithRequiredFields.setTeamId(1L);
 
+        playerWithRequiredFields = new Player();
         playerWithRequiredFields.setPlayerName("Ronaldo");
         playerWithRequiredFields.setBirthYear(1983);
         playerWithRequiredFields.setCareerStartYear(2000);

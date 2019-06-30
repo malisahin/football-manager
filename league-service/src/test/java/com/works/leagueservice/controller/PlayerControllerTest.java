@@ -1,70 +1,142 @@
 package com.works.leagueservice.controller;
 
-import com.google.gson.Gson;
+import com.works.leagueservice.AbstractTestConfig;
+import com.works.leagueservice.mappingservice.PlayerMappingService;
+import com.works.leagueservice.test_domain.PlayerDomainProvider;
 import com.works.sharedlibrary.domain.dto.PlayerDTO;
-import com.works.sharedlibrary.domain.dto.TeamDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author mali.sahin
  * @since 2019-06-26.
  */
-@RunWith(SpringRunner.class)
+
 @WebMvcTest(PlayerController.class)
 @WebAppConfiguration
-public class PlayerControllerTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class PlayerControllerTest extends AbstractTestConfig {
+
+    @Autowired
+    WebApplicationContext webApplicationContext;
 
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private PlayerMappingService playerMappingService;
+
+
     @Before
     public void setUp() {
-
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
     public void addNewPlayer_whenGiveRequiredFields_thenShouldCreateNewPlayer() throws Exception {
-        PlayerDTO player = new PlayerDTO();
-        player.playerName = "Ronaldo";
-        TeamDTO team = new TeamDTO();
-        team.teamName = "Manchester United";
-        player.team = team;
+        // given
+        final PlayerDTO playerDTO = PlayerDomainProvider.withRequiredFields();
+        playerDTO.playerId = null;  // to insert
 
-        String content = new Gson().toJson(player);
-        mockMvc.perform(
+        final PlayerDTO insertedPlayer = playerDTO.deepCopy();
+        insertedPlayer.playerId = 1L;
+        // mock
+        when(playerMappingService.save(playerDTO)).thenReturn(insertedPlayer);
+
+        //action
+        final ResultActions resultActions = mockMvc.perform(
                 post("/player")
-                        .accept(MediaType.APPLICATION_JSON_VALUE)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(content)
-        ).andExpect(status().isCreated());
+                        .accept(DEFAULT_MEDIA_TYPE)
+                        .contentType(DEFAULT_MEDIA_TYPE)
+                        .content(gson.toJson(playerDTO))
+        );
+
+        //verify
+        resultActions.andExpect(status().isCreated());
+        String responseContent = resultActions.andReturn().getResponse().getContentAsString();
+        PlayerDTO resultPlayer = gson.fromJson(responseContent, PlayerDTO.class);
+        assertEquals(resultPlayer.playerId, insertedPlayer.playerId);
+        verify(playerMappingService, times(1))
+                .save(playerDTO);
     }
 
     @Test
     public void updateExistingPlayer_whenGiveNewFields_thenShouldUpdateOldValues() throws Exception {
-        PlayerDTO player = new PlayerDTO();
-        player.playerName = "Ronaldo";
-        TeamDTO team = new TeamDTO();
-        team.teamName = "Manchester United";
-        player.team = team;
+        // given
+        final PlayerDTO player = PlayerDomainProvider.withRequiredFields();
+        player.playerId = 1L;  // to update
 
-        String content = new Gson().toJson(player);
-        mockMvc.perform(
+        final PlayerDTO updatedPlayer = player.deepCopy();
+        updatedPlayer.playerId = 1L;
+        updatedPlayer.playerName = player.playerName + "X";
+        // mock
+        when(playerMappingService.save(player)).thenReturn(updatedPlayer);
+
+        final ResultActions resultActions = mockMvc.perform(
                 put("/player")
-                        .accept(MediaType.APPLICATION_JSON_VALUE)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(content)
-        ).andExpect(status().isCreated());
+                        .accept(DEFAULT_MEDIA_TYPE)
+                        .contentType(DEFAULT_MEDIA_TYPE)
+                        .content(gson.toJson(player))
+        );
+        resultActions.andExpect(status().isCreated());
+        assertEquals(updatedPlayer.playerName, player.playerName + "X");
+        verify(playerMappingService, times(1))
+                .save(player);
+    }
+
+    @Test
+    public void deletePlayer_givePlayerId_thenShouldDeletePlayer() throws Exception {
+        //given
+        final Long playerId = 1L;
+
+        //mock
+
+        //action
+        final ResultActions resultActions = mockMvc.perform(delete("/player/" + playerId)
+                .accept(DEFAULT_MEDIA_TYPE)
+                .contentType(DEFAULT_MEDIA_TYPE));
+
+        //verify
+        resultActions.andExpect(status().isOk());
+        verify(playerMappingService, times(1))
+                .delete(playerId);
+    }
+
+    @Test
+    public void findAllPlayers_givePageableParams_thenShouldGivePlayers() throws Exception {
+        //give
+        final PageRequest pageRequest = PageRequest.of(0, 5);
+
+        //mock
+        when(playerMappingService.findAll(pageRequest)).thenReturn(new ArrayList<>());
+
+        //action
+        final ResultActions resultActions = mockMvc.perform(
+                get("?page=0&size=5")
+                        .accept(DEFAULT_MEDIA_TYPE)
+                        .contentType(DEFAULT_MEDIA_TYPE));
+
+        //verify
+        resultActions.andExpect(status().isOk());
+        verify(playerMappingService, times(1))
+                .findAll(pageRequest);
     }
 }

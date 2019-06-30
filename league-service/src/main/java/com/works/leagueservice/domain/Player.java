@@ -1,10 +1,7 @@
 package com.works.leagueservice.domain;
 
 import com.works.sharedlibrary.util.DateUtil;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,12 +11,10 @@ import java.util.function.Predicate;
  * @author mali.sahin
  * @since 2019-06-26.
  */
-@Table(name = "player")
+@Table(name = "player", schema = "football_manager")
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
-@Data
 public class Player extends BaseEntity {
 
     @Id

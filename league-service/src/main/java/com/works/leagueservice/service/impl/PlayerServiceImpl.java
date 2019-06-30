@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -32,6 +33,7 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
     }
 
     @Override
+    @Transactional
     public Player save(final Player player) {
         validatePlayerToSave(player);
         return Optional.ofNullable(player)
@@ -88,12 +90,13 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
     }
 
     @Override
+    @Transactional
     public void delete(long playerId) {
         playerRepository.disablePlayer(playerId, Constants.DEFAULT_INVALID_VALUE);
     }
 
     @Override
-    public Page<Player> search(Pageable pageable) {
+    public Page<Player> findAll(Pageable pageable) {
         return playerRepository.findAll(pageable);
     }
 }

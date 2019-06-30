@@ -13,5 +13,5 @@ public interface PlayerService {
 
     void delete(long playerId);
 
-    Page<Player> search(Pageable pageable);
+    Page<Player> findAll(Pageable pageable);
 }

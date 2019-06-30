@@ -1,9 +1,6 @@
 package com.works.leagueservice.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,12 +8,14 @@ import javax.persistence.*;
  * @author mali.sahin
  * @since 2019-06-26.
  */
-@Table(name = "transfer")
+@Table(name = "transfer", schema = "football_manager")
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transfer extends BaseEntity implements Comparable<Transfer> {
 
     @Id

@@ -13,11 +13,12 @@ import java.util.Optional;
  * @author mali.sahin
  * @since 2019-06-26.
  */
+
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long>, JpaSpecificationExecutor<Team> {
 
     @Query("update Team set isActv = :isActv where teamId = :teamId")
-    void disableTeam(@Param("teamId") long playerId, @Param("isActv") int isActv);
+    void disableTeam(@Param("teamId") long playerId, @Param("isActv") Long isActv);
 
-    Optional<Team> findByTeamIdAndIsActv(long teamId, int isActv);
+    Optional<Team> findByTeamIdAndIsActv(long teamId, Long isActv);
 }
