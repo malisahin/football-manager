@@ -103,4 +103,21 @@ public class TransferServiceImpl extends BaseService implements TransferService 
         teamList.add(lastTransfer.getTerminal());
         return teamList;
     }
+
+    @Override
+    public void delete(Long transferId) {
+        this.transferRepository.disableTransfer(transferId);
+    }
+
+    @Override
+    public List<Transfer> findTransferByYearAndPlayerId(Long teamId, int transferYear) {
+        return this.transferRepository.findTransferByYearAndPlayerId(teamId, transferYear);
+    }
+
+    public List<Player> findPlayerByYearAndTeamId(Long teamId, int year) {
+        List<Player> transferredList = findTransferByYearAndPlayerId(teamId, year).stream()
+                .map(Transfer::getPlayer)
+                .collect(Collectors.toList());
+
+
 }

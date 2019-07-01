@@ -14,4 +14,8 @@ public interface TransferService {
     Transfer save(Transfer transfer);
 
     List<Team> getTeamListByPlayer(Long playerId);
+
+    void delete(Long transferId);
+
+    List<Transfer> findTransferByYearAndPlayerId(Long teamId, int transferYear);
 }

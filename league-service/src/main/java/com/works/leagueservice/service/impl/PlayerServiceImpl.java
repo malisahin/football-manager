@@ -2,8 +2,10 @@ package com.works.leagueservice.service.impl;
 
 import com.works.leagueservice.domain.Constants;
 import com.works.leagueservice.domain.Player;
+import com.works.leagueservice.domain.Transfer;
 import com.works.leagueservice.repository.PlayerRepository;
 import com.works.leagueservice.service.PlayerService;
+import com.works.leagueservice.service.TransferService;
 import com.works.sharedlibrary.exceptions.InvalidFieldException;
 import com.works.sharedlibrary.exceptions.ResourceNotFoundException;
 import com.works.sharedlibrary.util.DateUtil;
@@ -14,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author mali.sahin
@@ -26,6 +30,8 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
 
     @Autowired
     private PlayerRepository playerRepository;
+    @Autowired
+    private TransferService transferService;
 
     private static Predicate<Player> canPlay(Player player) {
         int age = DateUtil.getYear(new Date()) - player.getBirthYear();
@@ -98,5 +104,11 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
     @Override
     public Page<Player> findAll(Pageable pageable) {
         return playerRepository.findAll(pageable);
+    }
+
+
+
+
+
     }
 }
