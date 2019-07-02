@@ -23,25 +23,23 @@ public class Transfer extends BaseEntity implements Comparable<Transfer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transferId;
 
-    @Column(name = "departure_team_id", nullable = false, updatable = false, insertable = false)
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id", referencedColumnName = "departure_team_id")
+    @JoinColumn(name = "departure_team_id", referencedColumnName = "team_id", insertable = false, updatable = false)
     private Team departure;
 
     @Column(name = "departure_team_id", nullable = false)
     private Long departureTeamId;
 
-    @Column(name = "terminal_team_id", nullable = false, updatable = false, insertable = false)
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id", referencedColumnName = "terminal_team_id")
+    @JoinColumn(name = "terminal_team_id", referencedColumnName = "team_id", insertable = false, updatable = false)
     private Team terminal;
 
     @Column(name = "terminal_team_id", nullable = false)
     private Long terminalTeamId;
 
-    @Column(name = "player_id", nullable = false, updatable = false, insertable = false)
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "player_id", referencedColumnName = "player_id")
+    @JoinColumn(name = "player_id", referencedColumnName = "player_id", insertable = false, updatable = false)
     private Player player;
 
     @Basic

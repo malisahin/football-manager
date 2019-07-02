@@ -10,10 +10,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @since 2019-06-26.
  */
 @Configuration
-@EntityScan(basePackages = "com.works.leagueservice.domain")
-@EnableJpaRepositories("com.works.leagueservice.repository")
-@ComponentScan(basePackages = {"com.works.leagueservice.mappingservice",
+@EnableJpaRepositories(basePackages = "com.works.leagueservice.repository")
+@ComponentScan(basePackages = {
+        "com.works.leagueservice.mappingservice",
         "com.works.leagueservice.service",
         "com.works.leagueservice.config"})
+@EntityScan(basePackages = "com.works.leagueservice.domain")
 public class ApplicationConfig {
 }

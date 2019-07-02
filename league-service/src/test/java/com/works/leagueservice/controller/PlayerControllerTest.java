@@ -2,11 +2,13 @@ package com.works.leagueservice.controller;
 
 import com.works.leagueservice.AbstractTestConfig;
 import com.works.leagueservice.mappingservice.PlayerMappingService;
+import com.works.leagueservice.service.TeamService;
 import com.works.leagueservice.test_domain.PlayerDomainProvider;
 import com.works.sharedlibrary.domain.dto.PlayerDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -40,6 +42,9 @@ public class PlayerControllerTest extends AbstractTestConfig {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Mock
+    private TeamService teamService;
 
     @MockBean
     private PlayerMappingService playerMappingService;

@@ -6,6 +6,7 @@ import com.works.leagueservice.repository.TeamRepository;
 import com.works.leagueservice.service.TeamService;
 import com.works.sharedlibrary.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
  * @author mali.sahin
  * @since 2019-06-26.
  */
+@Service
 public class TeamServiceImpl extends BaseService implements TeamService {
 
     @Autowired

@@ -1,6 +1,5 @@
 package com.works.leagueservice.config;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -20,7 +19,6 @@ import java.util.Properties;
  * @since 2019-06-30.
  */
 @Configuration
-@EnableAutoConfiguration
 public class PersistenceConfig {
 
     @Bean
@@ -28,7 +26,7 @@ public class PersistenceConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.baeldung.persistence.model"});
+        em.setPackagesToScan(new String[]{"com.works.leagueservice.domain"});
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

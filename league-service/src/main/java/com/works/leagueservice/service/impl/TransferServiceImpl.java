@@ -118,6 +118,6 @@ public class TransferServiceImpl extends BaseService implements TransferService 
         List<Player> transferredList = findTransferByYearAndPlayerId(teamId, year).stream()
                 .map(Transfer::getPlayer)
                 .collect(Collectors.toList());
-
-
+        return null;
+    }
 }

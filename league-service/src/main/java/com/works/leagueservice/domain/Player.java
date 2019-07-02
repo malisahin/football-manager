@@ -1,7 +1,8 @@
 package com.works.leagueservice.domain;
 
 import com.works.sharedlibrary.util.DateUtil;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class Player extends BaseEntity {
     private Long teamId;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "team_id", referencedColumnName = "team_id")
+    @JoinColumn(name = "team_id", referencedColumnName = "team_id", updatable = false, insertable = false)
     private Team team;
 
     @Column(name = "birth_year", nullable = false)

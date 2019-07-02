@@ -2,7 +2,6 @@ package com.works.leagueservice.service.impl;
 
 import com.works.sharedlibrary.exceptions.InvalidFieldException;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Component;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -11,7 +10,7 @@ import java.util.function.Supplier;
  * @author mali.sahin
  * @since 2019-06-27.
  */
-@Component
+
 public class BaseService {
 
     static Predicate<String> isBlank() {
