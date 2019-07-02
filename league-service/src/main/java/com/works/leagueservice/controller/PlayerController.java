@@ -32,8 +32,8 @@ public class PlayerController {
         return new ResponseEntity<>(playerMappingService.save(playerDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping(name = "/{playerId}")
-    public ResponseEntity deletePlayer(@PathVariable Long playerId) {
+    @DeleteMapping(path = "/{playerId}")
+    public ResponseEntity deletePlayer(@PathVariable("playerId") Long playerId) {
         playerMappingService.delete(playerId);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

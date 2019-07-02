@@ -64,7 +64,7 @@ public class PlayerControllerTest extends AbstractTestConfig {
         final PlayerDTO insertedPlayer = playerDTO.deepCopy();
         insertedPlayer.playerId = 1L;
         // mock
-        when(playerMappingService.save(playerDTO)).thenReturn(insertedPlayer);
+        when(playerMappingService.save(any(PlayerDTO.class))).thenReturn(insertedPlayer);
 
         //action
         final ResultActions resultActions = mockMvc.perform(
@@ -80,7 +80,7 @@ public class PlayerControllerTest extends AbstractTestConfig {
         PlayerDTO resultPlayer = gson.fromJson(responseContent, PlayerDTO.class);
         assertEquals(resultPlayer.playerId, insertedPlayer.playerId);
         verify(playerMappingService, times(1))
-                .save(playerDTO);
+                .save(any(PlayerDTO.class));
     }
 
     @Test
@@ -101,10 +101,10 @@ public class PlayerControllerTest extends AbstractTestConfig {
                         .contentType(DEFAULT_MEDIA_TYPE)
                         .content(gson.toJson(player))
         );
-        resultActions.andExpect(status().isCreated());
+        resultActions.andExpect(status().isOk());
         assertEquals(updatedPlayer.playerName, player.playerName + "X");
         verify(playerMappingService, times(1))
-                .save(player);
+                .save(any(PlayerDTO.class));
     }
 
     @Test
@@ -113,9 +113,10 @@ public class PlayerControllerTest extends AbstractTestConfig {
         final Long playerId = 1L;
 
         //mock
+        //when(playerMappingService.delete(playerId));
 
         //action
-        final ResultActions resultActions = mockMvc.perform(delete("/player/" + playerId)
+        final ResultActions resultActions = mockMvc.perform(delete("/player/1")
                 .accept(DEFAULT_MEDIA_TYPE)
                 .contentType(DEFAULT_MEDIA_TYPE));
 
@@ -135,7 +136,7 @@ public class PlayerControllerTest extends AbstractTestConfig {
 
         //action
         final ResultActions resultActions = mockMvc.perform(
-                get("?page=0&size=5")
+                get("/player?page=0&size=5")
                         .accept(DEFAULT_MEDIA_TYPE)
                         .contentType(DEFAULT_MEDIA_TYPE));
 
