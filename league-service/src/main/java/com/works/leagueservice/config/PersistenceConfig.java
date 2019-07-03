@@ -21,48 +21,48 @@ import java.util.Properties;
 @Configuration
 public class PersistenceConfig {
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.works.leagueservice.domain"});
+  @Bean
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    LocalContainerEntityManagerFactoryBean em
+        = new LocalContainerEntityManagerFactoryBean();
+    em.setDataSource(dataSource());
+    em.setPackagesToScan(new String[]{"com.works.leagueservice.domain"});
 
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
+    JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+    em.setJpaVendorAdapter(vendorAdapter);
+    em.setJpaProperties(additionalProperties());
 
-        return em;
-    }
+    return em;
+  }
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("1234");
-        return dataSource;
-    }
+  @Bean
+  public DataSource dataSource() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setDriverClassName("org.postgresql.Driver");
+    dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
+    dataSource.setUsername("postgres");
+    dataSource.setPassword("1234");
+    return dataSource;
+  }
 
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
+  @Bean
+  public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+    JpaTransactionManager transactionManager = new JpaTransactionManager();
+    transactionManager.setEntityManagerFactory(emf);
 
-        return transactionManager;
-    }
+    return transactionManager;
+  }
 
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
+  @Bean
+  public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+    return new PersistenceExceptionTranslationPostProcessor();
+  }
 
-    Properties additionalProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+  private Properties additionalProperties() {
+    Properties properties = new Properties();
+    properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+    properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
-        return properties;
-    }
+    return properties;
+  }
 }
