@@ -1,0 +1,19 @@
+spring:
+    application:
+      name: api-gateway
+zuul:
+  ignored-services: '*'
+  host:
+    max-total-connections: 1000
+    max-per-route-connections: 1000
+  routes:
+    league-service:
+        path: /league/**
+        sensitive-headers: null
+        service-id: student-service
+        strip-prefix: false
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    service-url: htt

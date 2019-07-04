@@ -26,7 +26,7 @@ public class PersistenceConfig {
     LocalContainerEntityManagerFactoryBean em
         = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
-    em.setPackagesToScan(new String[]{"com.works.leagueservice.domain"});
+    em.setPackagesToScan("com.works.leagueservice.domain");
 
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);
