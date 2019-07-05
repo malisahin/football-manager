@@ -16,9 +16,10 @@
     <description>Demo project for Spring Boot</description>
 
     <modules>
-        <module>eureka-server</module>
+        <module>eureka-service</module>
         <module>gateway</module>
         <module>league-service</module>
+        <module>finance-service</module>
         <module>shared-library</module>
     </modules>
 
