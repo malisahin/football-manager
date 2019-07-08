@@ -18,7 +18,7 @@ import java.util.Optional;
 public interface TeamRepository extends JpaRepository<Team, Long>, JpaSpecificationExecutor<Team> {
 
     @Query("update Team set isActv = :isActv where teamId = :teamId")
-    void disableTeam(@Param("teamId") long playerId, @Param("isActv") Long isActv);
+    void disableTeam(@Param("teamId") long teamId, @Param("isActv") Long isActv);
 
     Optional<Team> findByTeamIdAndIsActv(long teamId, Long isActv);
 }

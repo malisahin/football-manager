@@ -4,6 +4,7 @@ import com.works.leagueservice.domain.Constants;
 import com.works.leagueservice.domain.Team;
 import com.works.leagueservice.repository.TeamRepository;
 import com.works.leagueservice.service.TeamService;
+import com.works.sharedlibrary.exceptions.ResourceNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -86,5 +87,37 @@ public class TeamServiceTest extends AbstractTestService {
         assertEquals(resultTeam.getTeamId(), updatedTeam.getTeamId());
         assertNotNull(resultTeam.getUpdatedAt());
         verify(teamRepository, times(1)).save(team);
+    }
+
+    @Test
+    public void updateNotExistTeam_giveNotExistId_thenShouldThrowException() {
+
+        //given
+        final Team team = new Team();
+        team.setTeamId(2L);
+        final Optional<Team> optionalTeam = Optional.empty();
+        //mock
+        doReturn(optionalTeam).when(teamRepository).findByTeamIdAndIsActv(team.getTeamId(), Constants.DEFAULT_VALID_VALUE);
+
+        thrown.expect(ResourceNotFoundException.class);
+        thrown.expectMessage("Team is not found with id " + team.getTeamId());
+
+        // action
+        teamService.update(team);
+    }
+
+    @Test
+    public void deleteTeam_giveTeamId_thenShouldSetDisabled() {
+       // given
+        final long teamId = 1L;
+
+        //mock
+        doNothing().when(teamRepository).disableTeam(teamId, Constants.DEFAULT_INVALID_VALUE);
+
+        // action
+        this.teamService.delete(teamId);
+
+        // verify
+        verify(teamRepository, times(1)).disableTeam(teamId, Constants.DEFAULT_INVALID_VALUE);
     }
 }
