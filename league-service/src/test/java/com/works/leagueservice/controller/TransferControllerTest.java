@@ -51,6 +51,7 @@ public class TransferControllerTest extends AbstractTestConfig {
         TransferDTO transferDTO = TransferDomainProvider.withRequiredFields();
 
         //mock
+        //doReturn(transferDTO).when(transferMappingService.save(transferDTO));
         when(transferMappingService.save(transferDTO)).thenReturn(transferDTO);
 
         //action
@@ -63,7 +64,7 @@ public class TransferControllerTest extends AbstractTestConfig {
 
         //verify
         resultActions.andExpect(status().isCreated());
-        verify(transferMappingService, times(1)).save(transferDTO);
+        verify(transferMappingService, times(1)).save(any(TransferDTO.class));
     }
 
     @Test
@@ -72,7 +73,7 @@ public class TransferControllerTest extends AbstractTestConfig {
         TransferDTO transferDTO = TransferDomainProvider.withRequiredFields();
 
         //mock
-        when(transferMappingService.save(transferDTO)).thenReturn(transferDTO);
+        when(transferMappingService.update(transferDTO)).thenReturn(transferDTO);
 
         //action
         final ResultActions resultActions = mockMvc.perform(
@@ -84,7 +85,7 @@ public class TransferControllerTest extends AbstractTestConfig {
 
         //verify
         resultActions.andExpect(status().isOk());
-        verify(transferMappingService, times(1)).save(transferDTO);
+        verify(transferMappingService, times(1)).update(any(TransferDTO.class));
     }
 
     @Test
@@ -93,6 +94,7 @@ public class TransferControllerTest extends AbstractTestConfig {
         final Long transferId = 1L;
 
         //mock
+        doNothing().when(transferMappingService).delete(transferId);
 
         //action
         final ResultActions resultActions = mockMvc.perform(

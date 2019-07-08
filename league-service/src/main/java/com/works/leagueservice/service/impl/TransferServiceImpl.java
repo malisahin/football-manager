@@ -12,6 +12,7 @@ import com.works.sharedlibrary.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class TransferServiceImpl extends BaseService implements TransferService 
     private TransferRepository transferRepository;
 
     @Override
+    @Transactional
     public Transfer save(Transfer transfer) {
         return Optional.of(transfer)
                 .map(Transfer::getTransferId)
@@ -35,7 +37,9 @@ public class TransferServiceImpl extends BaseService implements TransferService 
                 .orElse(this.persist(transfer));
     }
 
-    private Transfer update(Transfer transfer) {
+    @Override
+    @Transactional
+    public Transfer update(Transfer transfer) {
         Optional<Transfer> existTransfer = this.transferRepository.findByTransferIdAndIsActv(transfer.getTransferId(), Constants.DEFAULT_VALID_VALUE);
         Optional.ofNullable(existTransfer)
                 .orElseThrow(() -> new ResourceNotFoundException("Transfer is not found"));

@@ -26,10 +26,10 @@ public class TransferController {
 
     @PutMapping
     public ResponseEntity<TransferDTO> update(TransferDTO transferDTO) {
-        return new ResponseEntity<>(transferMappingService.save(transferDTO), HttpStatus.OK);
+        return new ResponseEntity<>(transferMappingService.update(transferDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("/transferId")
+    @DeleteMapping("/{transferId}")
     public ResponseEntity delete(@PathVariable Long transferId) {
         transferMappingService.delete(transferId);
         return new ResponseEntity(HttpStatus.OK);

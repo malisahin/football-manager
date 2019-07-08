@@ -21,6 +21,12 @@ public class TransferMappingService extends AbstractMappingService {
         return mapper.map(savedTransfer, TransferDTO.class);
     }
 
+    public TransferDTO update(TransferDTO transferDTO) {
+        final Transfer transfer = mapper.map(transferDTO, Transfer.class);
+        final Transfer savedTransfer = transferService.update(transfer);
+        return mapper.map(savedTransfer, TransferDTO.class);
+    }
+
     public void delete(Long transferId) {
         transferService.delete(transferId);
     }

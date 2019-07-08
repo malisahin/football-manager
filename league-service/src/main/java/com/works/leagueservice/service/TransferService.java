@@ -18,4 +18,6 @@ public interface TransferService {
     void delete(Long transferId);
 
     List<Transfer> findTransferByYearAndPlayerId(Long teamId, int transferYear);
+
+    Transfer update(Transfer transfer);
 }
