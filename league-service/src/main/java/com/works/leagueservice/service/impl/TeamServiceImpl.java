@@ -34,7 +34,9 @@ public class TeamServiceImpl extends BaseService implements TeamService {
         return teamRepository.save(team);
     }
 
-    private Team update(Team team) {
+    @Override
+    @Transactional()
+    public Team update(Team team) {
         Optional<Team> existingTeam = this.teamRepository.findByTeamIdAndIsActv(team.getTeamId(), Constants.DEFAULT_VALID_VALUE);
         if (!existingTeam.isPresent()) {
             throw new ResourceNotFoundException("Team is not found with id " + team.getTeamId());

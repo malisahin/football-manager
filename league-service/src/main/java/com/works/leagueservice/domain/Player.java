@@ -49,6 +49,7 @@ public class Player extends BaseEntity {
 
     public Player deepCopy() {
         Player clone = new Player();
+        clone.setPlayerName(this.getPlayerName());
         clone.setPlayerId(this.playerId);
         clone.setTeamId(this.getTeamId());
         clone.setTeam(this.team);

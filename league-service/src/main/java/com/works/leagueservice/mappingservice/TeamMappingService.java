@@ -25,6 +25,12 @@ public class TeamMappingService extends AbstractMappingService {
         return mapper.map(insertedTeam, TeamDTO.class);
     }
 
+    public TeamDTO update(TeamDTO teamDTO) {
+        final Team team = mapper.map(teamDTO, Team.class);
+        final Team insertedTeam = teamService.update(team);
+        return mapper.map(insertedTeam, TeamDTO.class);
+    }
+
     public void delete(Long teamId) {
         this.teamService.delete(teamId);
     }

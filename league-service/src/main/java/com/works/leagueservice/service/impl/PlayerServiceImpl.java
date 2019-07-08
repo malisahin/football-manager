@@ -7,6 +7,7 @@ import com.works.leagueservice.service.PlayerService;
 import com.works.sharedlibrary.exceptions.InvalidFieldException;
 import com.works.sharedlibrary.exceptions.ResourceNotFoundException;
 import com.works.sharedlibrary.util.DateUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ import java.util.function.Predicate;
  * @author mali.sahin
  * @since 2019-06-26.
  */
+@RequiredArgsConstructor
 @Service
 public class PlayerServiceImpl extends BaseService implements PlayerService {
 
@@ -56,19 +58,17 @@ public class PlayerServiceImpl extends BaseService implements PlayerService {
 
         Optional.of(player)
                 .map(Player::getCareerStartYear)
-                .orElseThrow(invalidFieldSupplier("Career Start Date cannot be null!!"));
+                .filter(year -> 0 != year)
+                .orElseThrow(invalidFieldSupplier("Career Start Year cannot be null!!"));
 
-  /*      Optional.of(player)
-                .map(Player::isEligible)
-                .orElseThrow(() -> new BusinessValidationException("Player has to play in a team!!!"));
-*/
         Optional.of(player)
                 .map(Player::getBirthYear)
-                .orElseThrow(invalidFieldSupplier("Birth Date cannot be null!!"));
+                .filter(year -> 0 != year)
+                .orElseThrow(invalidFieldSupplier("Birth Year cannot be null!!"));
 
         Optional.of(player)
                 .map(Player::getTeamId)
-                .orElseThrow(invalidFieldSupplier("Birth Date cannot be null!!"));
+                .orElseThrow(invalidFieldSupplier("Team cannot be null!!"));
 
     }
 

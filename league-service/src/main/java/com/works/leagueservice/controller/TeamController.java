@@ -27,7 +27,7 @@ public class TeamController {
 
     @PutMapping
     public ResponseEntity<TeamDTO> update(TeamDTO teamDTO) {
-        return new ResponseEntity<>(teamMappingService.save(teamDTO), HttpStatus.OK);
+        return new ResponseEntity<>(teamMappingService.update(teamDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/teamId")

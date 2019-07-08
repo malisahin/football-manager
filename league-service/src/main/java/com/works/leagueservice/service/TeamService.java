@@ -11,5 +11,7 @@ public interface TeamService {
 
     Team save(Team team);
 
+    Team update(Team team);
+
     void delete(long teamId);
 }
