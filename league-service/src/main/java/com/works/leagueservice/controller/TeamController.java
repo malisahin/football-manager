@@ -30,13 +30,13 @@ public class TeamController {
         return new ResponseEntity<>(teamMappingService.update(teamDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("/teamId")
+    @DeleteMapping("/{teamId}")
     public ResponseEntity delete(@PathVariable Long teamId) {
         teamMappingService.delete(teamId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/playerId")
+    @GetMapping("/{playerId}")
     public ResponseEntity<List<TeamDTO>> getPlayerTeamHistory(@PathVariable Long playerId) {
         return new ResponseEntity<>(teamMappingService.getPlayerTeamHistory(playerId), HttpStatus.OK);
     }

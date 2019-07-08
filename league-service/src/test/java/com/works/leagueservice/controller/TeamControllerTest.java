@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -88,7 +89,7 @@ public class TeamControllerTest extends AbstractTestConfig {
         insertedTeam.teamId = 1L;
         insertedTeam.teamName = "Chelsea";
         //mock
-        when(teamMappingService.save(teamDTO)).thenReturn(insertedTeam);
+        when(teamMappingService.update(any(TeamDTO.class))).thenReturn(insertedTeam);
 
         //action
         final ResultActions resultActions = mockMvc.perform(
@@ -97,17 +98,22 @@ public class TeamControllerTest extends AbstractTestConfig {
                         .contentType(DEFAULT_MEDIA_TYPE)
                         .content(gson.toJson(teamDTO))
         );
-        resultActions.andExpect(status().isCreated());
+        resultActions.andExpect(status().isOk());
         String responseContent = resultActions.andReturn().getResponse().getContentAsString();
         TeamDTO resultTeam = gson.fromJson(responseContent, TeamDTO.class);
         assertEquals(resultTeam.teamId, insertedTeam.teamId);
-        verify(teamMappingService, times(1)).save(teamDTO);
+        verify(teamMappingService, times(1)).update(any(TeamDTO.class));
     }
 
 
     @Test
     public void delete() throws Exception {
+        // given
         final Long teamId = 1L;
+
+        // mock
+        doNothing().when(teamMappingService).delete(teamId);
+
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.delete("/team/" + teamId)
                         .accept(DEFAULT_MEDIA_TYPE)
@@ -119,19 +125,26 @@ public class TeamControllerTest extends AbstractTestConfig {
     }
 
     @Test
-    public void getPlayerTeamHistory() throws Exception {
+    public void getPlayerTeamHistory_givePlayerId_thenShouldReturnTransferList() throws Exception {
         // give
         final Long playerId = 1L;
 
-        //mock
-        when(teamMappingService.getPlayerTeamHistory(playerId)).thenReturn(new ArrayList<>());
+        final List<TeamDTO> teamDTOList = new ArrayList<>();
+        teamDTOList.add(new TeamDTO());
+        teamDTOList.add(new TeamDTO());
+        teamDTOList.add(new TeamDTO());
 
+        //mock
+        when(teamMappingService.getPlayerTeamHistory(playerId)).thenReturn(teamDTOList);
+
+        // action
         final ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/team/" + playerId)
                         .accept(DEFAULT_MEDIA_TYPE)
                         .contentType(DEFAULT_MEDIA_TYPE)
         );
 
+        // verify
         resultActions.andExpect(status().isOk());
         verify(teamMappingService, timeout(1)).getPlayerTeamHistory(playerId);
     }
