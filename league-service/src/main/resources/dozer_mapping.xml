@@ -10,6 +10,7 @@
     <mapping>
         <class-a>com.works.leagueservice.domain.Team</class-a>
         <class-b>com.works.sharedlibrary.domain.dto.TeamDTO</class-b>
+
     </mapping>
     <mapping>
         <class-a>com.works.leagueservice.domain.Transfer</class-a>

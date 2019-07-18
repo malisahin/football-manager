@@ -21,6 +21,7 @@
         <module>league-service</module>
         <module>finance-service</module>
         <module>shared-library</module>
+        <module>elastic-service</module>
     </modules>
 
 
